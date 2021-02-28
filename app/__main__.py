@@ -4,8 +4,8 @@ from . unlabeled_mapf_solver import Unlabled_MAPF_Solver
 from . fonts import get_config_from_char
 
 if __name__ == '__main__':
-    config_from = get_config_from_char('a')
-    config_to = get_config_from_char('b')
+    config_from = get_config_from_char('b')
+    config_to = get_config_from_char('a')
 
     with open('./instance/tmp.ins', 'w') as f:
         for s, g in zip(config_from, config_to):
