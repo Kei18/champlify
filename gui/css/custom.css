@@ -10,27 +10,15 @@ body{
   stroke: #141516;
 }
 
-@keyframes aliveBorder {
-  0% {
-    stroke: #01F3FD;
-    stroke-width: 3px;
-  }
-  100% {
-    stroke: #0f7f84;
-    stroke-width: 1px;
-  }
-}
-
-#agents rect {
+#agents circle {
   fill: #B1B2B8;
-  width: 60;
-  height: 60;
+  r: 30;
 
-  transition-duration: 1000ms;
+  transition-duration: 500ms;
   animation: aliveBorder 500ms infinite alternate;
 }
 
-#agents rect.off {
+#agents circle.off {
   fill: #030303;
 
   stroke-width: 0px;

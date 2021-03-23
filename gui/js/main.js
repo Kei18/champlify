@@ -1,8 +1,8 @@
 const GRID_WIDTH = 5;
 const GRID_HEIGHT = 7;
 const CELL_SIZE = 100;
-const BOARD_WIDTH = GRID_WIDTH*CELL_SIZE;
-const BOARD_HEIGHT = GRID_HEIGHT*CELL_SIZE;
+const BOARD_WIDTH = 9*CELL_SIZE;
+const BOARD_HEIGHT = 9*CELL_SIZE;
 const UPDATE_TIME_INTERVAL = 500;
 
 const eel = window["eel"];
@@ -22,20 +22,20 @@ $(function(){
   window.resizeTo(WINDOW_WIDTH, WINDOW_HEIGHT);
   window.onresize = function () { window.resizeTo(WINDOW_WIDTH, WINDOW_HEIGHT); };
 
-  function calc_x(x) { return CELL_SIZE*x + CELL_SIZE/2 - 30; }
-  function calc_y(y) { return CELL_SIZE*y + CELL_SIZE/2 - 30; }
+  function calc_x(x) { return CELL_SIZE*x + CELL_SIZE/2 + CELL_SIZE * 2;}
+  function calc_y(y) { return CELL_SIZE*y + CELL_SIZE/2 + CELL_SIZE; }
 
   let PATHS = [];
   let TYPED_STR = 'a';
   let CHAR_INFO = [ '' ];
 
   // initiate agents
-  $('#agents>rect').each(function(i, elem) {
+  $('#agents>circle').each(function(i, elem) {
     const x = $(elem).data('init-x');
     const y = $(elem).data('init-y');
     PATHS.push([x + y * GRID_WIDTH]);
-    $(elem).attr('x', calc_x(x));
-    $(elem).attr('y', calc_x(y));
+    $(elem).attr('cx', calc_x(x));
+    $(elem).attr('cy', calc_y(y));
   });
 
   // update path
@@ -97,8 +97,8 @@ $(function(){
 
       const agent = $('#agent' + i);
 
-      agent.attr('x', calc_x(x));
-      agent.attr('y', calc_x(y));
+      agent.attr('cx', calc_x(x));
+      agent.attr('cy', calc_y(y));
 
       if (CHAR_INFO[current_timestep].length > 0 && CHAR_INFO[current_timestep][y*GRID_WIDTH + x] == '_') {
         agent.addClass('off');
