@@ -1,0 +1,38 @@
+body{
+  margin: 0;
+}
+
+#canvas {
+  background-color: #000;
+}
+
+#grid line {
+  stroke: #141516;
+}
+
+@keyframes aliveBorder {
+  0% {
+    stroke: #01F3FD;
+    stroke-width: 3px;
+  }
+  100% {
+    stroke: #0f7f84;
+    stroke-width: 1px;
+  }
+}
+
+#agents rect {
+  fill: #B1B2B8;
+  width: 60;
+  height: 60;
+
+  transition-duration: 1000ms;
+  animation: aliveBorder 500ms infinite alternate;
+}
+
+#agents rect.off {
+  fill: #030303;
+
+  stroke-width: 0px;
+  animation: none;
+}

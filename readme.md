@@ -1,6 +1,7 @@
 app
 ---
 [![MIT License](http://img.shields.io/badge/license-MIT-blue.svg?style=flat)](LICENSE)
+
 This repository is for the [Fixstars Amplify Hackathon](https://amplify.fixstars.com/hackathon00).
 
 ## Demo

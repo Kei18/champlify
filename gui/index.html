@@ -1,0 +1,53 @@
+<html>
+  <head>
+    <title>app</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="css/custom.css">
+  </head>
+  <body>
+    <svg id="canvas" version="1.1" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 700" width="500" height="700">
+
+      <g id="grid">
+        <!-- vertical line -->
+        <line x1="100" y1="0" x2="100" y2="700" />
+        <line x1="200" y1="0" x2="200" y2="700" />
+        <line x1="300" y1="0" x2="300" y2="700" />
+        <line x1="400" y1="0" x2="400" y2="700" />
+        <!-- holizontal line -->
+        <line x1="0"  y1="100" x2="500" y2="100" />
+        <line x1="0"  y1="200" x2="500" y2="200" />
+        <line x1="0"  y1="300" x2="500" y2="300" />
+        <line x1="0"  y1="400" x2="500" y2="400" />
+        <line x1="0"  y1="500" x2="500" y2="500" />
+        <line x1="0"  y1="600" x2="500" y2="600" />
+      </g>
+
+      <g id="agents">
+        <rect id="agent0"  data-init-x="0" data-init-y="0" class="off"/>
+        <rect id="agent1"  data-init-x="1" data-init-y="0" class=""/>
+        <rect id="agent2"  data-init-x="2" data-init-y="0" class=""/>
+        <rect id="agent3"  data-init-x="3" data-init-y="0" class=""/>
+        <rect id="agent4"  data-init-x="4" data-init-y="0" class="off"/>
+        <rect id="agent5"  data-init-x="0" data-init-y="1" class=""/>
+        <rect id="agent6"  data-init-x="4" data-init-y="1" class=""/>
+        <rect id="agent7"  data-init-x="0" data-init-y="2" class=""/>
+        <rect id="agent8"  data-init-x="4" data-init-y="2" class=""/>
+        <rect id="agent9" data-init-x="0" data-init-y="3" class=""/>
+        <rect id="agent10" data-init-x="1" data-init-y="3" class=""/>
+        <rect id="agent11" data-init-x="2" data-init-y="3" class=""/>
+        <rect id="agent12" data-init-x="3" data-init-y="3" class=""/>
+        <rect id="agent13" data-init-x="4" data-init-y="3" class=""/>
+        <rect id="agent14"  data-init-x="0" data-init-y="4" class=""/>
+        <rect id="agent15" data-init-x="4" data-init-y="4" class=""/>
+        <rect id="agent16" data-init-x="0" data-init-y="5" class=""/>
+        <rect id="agent17" data-init-x="4" data-init-y="5" class=""/>
+        <rect id="agent18" data-init-x="0" data-init-y="6" class=""/>
+        <rect id="agent19" data-init-x="4" data-init-y="6" class=""/>
+      </g>
+    </svg>
+
+  </body>
+  <script src="js/jquery.min.js"></script>
+  <script type="text/javascript" src="/eel.js"></script>
+  <script src="js/main.js"></script>
+</html>

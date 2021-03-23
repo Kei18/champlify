@@ -11,6 +11,7 @@ app = "python -m app"
 [packages]
 amplify = "==0.4.1"
 coloredlogs = "*"
+eel = "*"
 
 [requires]
 python_version = "3.8"

@@ -1,21 +1,41 @@
 #!/usr/bin/env python
 
 from . unlabeled_mapf_solver import Unlabled_MAPF_Solver
-from . fonts import get_config_from_char
+from . fonts import create_transition_file, get_trimed_str
+import logging
+import eel
 
-if __name__ == '__main__':
-    config_from = get_config_from_char('b')
-    config_to = get_config_from_char('a')
+# set logger
+logger = logging.getLogger(__name__)
+formatter = '%(levelname)s: line %(lineno)d in %(funcName)s, %(filename)s: %(message)s'
+logging.basicConfig(level=logging.DEBUG, format=formatter)
 
-    with open('./instance/tmp.ins', 'w') as f:
-        for s, g in zip(config_from, config_to):
-            f.write('{},{},{},{}\n'.format(s[0], s[1], g[0], g[1]))
 
+@eel.expose
+def key_pressed(before_pos, next_char, ins_cnt):
+    logger.info(f'solve unlabeled-MAPF to char-{next_char}')
+    ins_name = f'./instance/tmp/{ins_cnt}.txt'
     map_name = './map/5x7.map'
-    ins_name = './instance/tmp.ins'
-    # map_name = './map/toy.map'
-    # ins_name = './instance/toy.ins'
-
+    create_transition_file(ins_name, before_pos, next_char)
     solver = Unlabled_MAPF_Solver(map_name, ins_name)
     solver.solve()
-    print(solver.solution)
+    return {
+        "solution": solver.solution,
+        "char": get_trimed_str(next_char)
+    }
+
+if __name__ == '__main__':
+
+    # map_name = './map/5x7.map'
+
+    # create_transition_file(ins_name, 'a', 'b')
+
+    # solver = Unlabled_MAPF_Solver(map_name, ins_name)
+    # solver.solve()
+    # print(solver.solution)
+
+    eel.init("gui", allowed_extensions=[".js", ".html"])
+    eel.start("index.html",
+              host="localhost",
+              port=8000,
+              mode="chrome")
