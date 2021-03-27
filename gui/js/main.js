@@ -30,12 +30,19 @@ $(function(){
   let CHAR_INFO = [ '' ];
 
   // initiate agents
-  $('#agents>circle').each(function(i, elem) {
+  $('#agents>.agent').each(function(i, elem) {
     const x = $(elem).data('init-x');
     const y = $(elem).data('init-y');
     PATHS.push([x + y * GRID_WIDTH]);
-    $(elem).attr('cx', calc_x(x));
-    $(elem).attr('cy', calc_y(y));
+    const off = $(elem).hasClass('off');
+    $(elem).addClass('off');
+
+    // randomize
+    setTimeout(function() {
+      $(elem).attr('cx', calc_x(x));
+      $(elem).attr('cy', calc_y(y));
+      if (!off) $(elem).removeClass('off');
+    }, Math.random()*500);
   });
 
   // update path
@@ -84,6 +91,13 @@ $(function(){
   // update location
   let current_timestep = 0;
   setInterval(function() {
+    // reset animation
+    for (let i = 0; i < PATHS.length; ++i) {
+      const agent = $('#agent' + i);
+      agent.removeClass('move-vertical');
+      agent.removeClass('move-horizontal');
+    }
+
     // paths are not changed
     if (current_timestep + 1 > PATHS[0].length - 1) return;
 
@@ -92,6 +106,9 @@ $(function(){
 
     // update locations
     for (let i = 0; i < PATHS.length; ++i) {
+      const x_prev = PATHS[i][current_timestep-1] % GRID_WIDTH;
+      const y_prev = Math.floor(PATHS[i][current_timestep-1] / GRID_WIDTH);
+
       const x = PATHS[i][current_timestep] % GRID_WIDTH;
       const y = Math.floor(PATHS[i][current_timestep] / GRID_WIDTH);
 
@@ -100,11 +117,20 @@ $(function(){
       agent.attr('cx', calc_x(x));
       agent.attr('cy', calc_y(y));
 
-      if (CHAR_INFO[current_timestep].length > 0 && CHAR_INFO[current_timestep][y*GRID_WIDTH + x] == '_') {
+      // animation, vertical
+      if (y != y_prev) agent.addClass('move-vertical');
+
+      // animation, horizontal
+      if (x != x_prev) agent.addClass('move-horizontal');
+
+      // switch agent color
+      if (CHAR_INFO[current_timestep].length > 0 &&
+          CHAR_INFO[current_timestep][y*GRID_WIDTH + x] == '_') {
         agent.addClass('off');
       } else {
         agent.removeClass('off');
       }
+
     }
 
     console.log('update locations, timestep=', current_timestep);

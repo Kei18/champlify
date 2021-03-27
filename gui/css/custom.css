@@ -3,24 +3,70 @@ body{
 }
 
 #canvas {
-  background-color: #000;
+  background-color: rgba(238, 238, 240);
 }
 
-#grid line {
-  stroke: #141516;
+@keyframes anim-move-vertical {
+  0%   { rx: 30; ry: 30; }
+  50%  { rx: 20; ry: 40; }
+  100% { rx: 30; ry: 30; }
+}
+@keyframes anim-move-horizontal {
+  0%   { rx: 30; ry: 30; }
+  50%  { rx: 40; ry: 20; }
+  100% { rx: 30; ry: 30; }
+}
+@keyframes anim-move-color {
+  0%   { fill: rgb(19,124,173); }
+  50%  { fill: rgba(19,124,173, 0.8); }
+  100% { fill: rgb(19,124,173); }
+}
+@keyframes anim-alive {
+  0% {
+    rx: 30;
+    ry: 30;
+  }
+  20% {
+    rx: 32;
+  }
+  50% {
+    rx: 30;
+  }
+  70% {
+    ry: 32;
+  }
+  100% {
+    ry: 30;
+  }
 }
 
-#agents circle {
-  fill: #B1B2B8;
-  r: 30;
-
+#agents .agent {
+  fill: rgb(19,124,173);
+  rx: 30;
+  ry: 30;
   transition-duration: 500ms;
-  animation: aliveBorder 500ms infinite alternate;
 }
 
-#agents circle.off {
-  fill: #030303;
+#agents .agent:not(.off) {
+  animation: anim-alive 1800ms infinite;
+}
 
+#agents .agent.move-vertical:not(.off) {
+  animation: anim-move-vertical 500ms ease infinite, anim-move-color 500ms ease infinite;
+}
+#agents .agent.move-horizontal:not(.off) {
+  animation: anim-move-horizontal 500ms ease infinite, anim-move-color 500ms ease infinite;
+}
+#agents .agent.move-vertical.off {
+  animation: anim-move-vertical 500ms ease infinite;
+}
+#agents .agent.move-horizontal.off {
+  animation: anim-move-horizontal 500ms ease infinite;
+}
+
+
+#agents .agent.off {
+  fill: rgba(228, 228, 228);
   stroke-width: 0px;
-  animation: none;
+  transition-duration: 500ms;
 }
