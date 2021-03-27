@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+# file format: https://movingai.com/benchmarks/
 
 import re
 

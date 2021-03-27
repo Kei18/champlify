@@ -22,7 +22,17 @@ coloredlogs.install(level='DEBUG')
 
 
 class Unlabled_MAPF_Solver:
-    """
+    """unlabeled-MAPF solver
+
+    Attributes:
+    - filed (graph): see loader.py
+    - instance (instance): see loader.py
+    - used_edges (the result of amplify api): will be translated to solution
+    - solution (list of list of integer): solution
+    - timeout (integer): time limit of solver
+    - max_makespan (integer): max makespan
+    - DIST_TABLE_FROM_STARTS (list): for branching
+    - DIST_TABLE_FROM_GOALS (list): for branching
     """
 
     def __init__(self, map_name, ins_name, timeout=1000, max_makespan=50):
@@ -53,12 +63,13 @@ class Unlabled_MAPF_Solver:
 
         logger.info("find feasible solution")
 
-        # special case
+        # special case, starts and goals are equal
         if sorted(self.instance["starts"]) == sorted(self.instance["goals"]):
             logger.info("starts and goals are euqal")
             self.solution = [ self.instance["starts"] ]
             return
 
+        # main loop
         while True:
             logger.info(f"try to find a solution with makespan={self.makespan}")
             try:
@@ -75,6 +86,7 @@ class Unlabled_MAPF_Solver:
                 # solved
                 logger.info(f"solved, makespan={self.makespan}")
                 break
+
         logger.info("translate a set of locations to a set of paths")
         self.set_solution()
         # check consistency
@@ -91,7 +103,7 @@ class Unlabled_MAPF_Solver:
         for t in range(self.makespan):
             q.append([])
             for v in range(self.field["size"]):
-                l = len(self.field["adj"][v])+1
+                l = len(self.field["adj"][v])+1  # +1 -> stay at the current location
                 q[-1].append(
                     amplify.gen_symbols( amplify.BinaryPoly, index, (1, l) )
                 )
@@ -99,13 +111,14 @@ class Unlabled_MAPF_Solver:
 
         # set starts
         constraints_starts = [
-            equal_to(sum_poly( q[0][v][0] ), 1)
+            equal_to(sum_poly( q[0][v][0] ), 1)    # q[timestep][node][0]
             for v in self.instance["starts"]
         ]
 
         for v in range(self.field["size"]):
             if v in self.instance["starts"]:
                 continue
+            # other locations
             for i in range(len(q[0][v][0])):
                 q[0][v][0][i] = amplify.BinaryPoly(0)
 
@@ -119,6 +132,7 @@ class Unlabled_MAPF_Solver:
         ]
 
         for v in range(self.field["size"]):
+            # other locations
             for i in range(len(self.field["adj"][v])):
                 if self.field["adj"][v][i] not in self.instance["goals"]:
                     q[-1][v][0][i] = amplify.BinaryPoly(0)
@@ -179,7 +193,7 @@ class Unlabled_MAPF_Solver:
             model += sum(constraints_in)
         if len(constraints_out) > 0:
             model += sum(constraints_out)
-        if len(constraints_continuity):
+        if len(constraints_continuity) > 0:
             model += sum(constraints_continuity)
 
         # setup client
@@ -212,6 +226,10 @@ class Unlabled_MAPF_Solver:
     def get_dist_table(self, init_locations, check_termination=None):
         """used in set_dist_table, get_minimum_makespan
 
+        Args:
+        - init_locations (list of integer): starts
+        - check_termination (function (integer)): determine the termination
+
         Returns:
         - distance when finishing the search
         - list[node_index]
@@ -225,7 +243,7 @@ class Unlabled_MAPF_Solver:
             dist_table[v] = 0
             OPEN.put(v)
 
-        # main loop
+        # main loop, BFS
         while not OPEN.empty():
             n = OPEN.get()
             d_n = dist_table[n]
@@ -244,7 +262,7 @@ class Unlabled_MAPF_Solver:
         return d_n, dist_table
 
     def set_solution(self):
-        """
+        """translate from used_edges to solution
         """
         if self.used_edges is None:
             logger.warning("this instance is not solved yet")
@@ -275,7 +293,8 @@ class Unlabled_MAPF_Solver:
                             self.solution[_t][j] = val
 
     def validate_solution(self):
-        """
+        """check the feasibility
+
         Returns
         - Boolean
         """

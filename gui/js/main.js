@@ -1,3 +1,7 @@
+/*
+ * animation -> check custom.css
+ */
+
 const GRID_WIDTH = 5;
 const GRID_HEIGHT = 7;
 const CELL_SIZE = 100;
@@ -7,7 +11,7 @@ const UPDATE_TIME_INTERVAL = 500;
 
 const eel = window["eel"];
 
-const valid_keys = [
+const allowed_keys = [
   'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm',
   'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'
 ];
@@ -25,8 +29,8 @@ $(function(){
   function calc_x(x) { return CELL_SIZE*x + CELL_SIZE/2 + CELL_SIZE * 2;}
   function calc_y(y) { return CELL_SIZE*y + CELL_SIZE/2 + CELL_SIZE; }
 
-  let PATHS = [];
-  let TYPED_STR = 'a';
+  let PATHS = [];           // trajectory
+  let TYPED_STR = 'a';      // typed chars
   let CHAR_INFO = [ '' ];
 
   // initiate agents
@@ -37,7 +41,7 @@ $(function(){
     const off = $(elem).hasClass('off');
     $(elem).addClass('off');
 
-    // randomize
+    // randomize timing
     setTimeout(function() {
       $(elem).attr('cx', calc_x(x));
       $(elem).attr('cy', calc_y(y));
@@ -47,6 +51,7 @@ $(function(){
 
   // update path
   async function getNewPaths(to_char) {
+    // call unlabeled MAPF solver
     const res = await eel.key_pressed(PATHS.map(path => { return path[path.length-1]; }),
                                       to_char, TYPED_STR.length-1)();
     const solution = res["solution"];
@@ -75,13 +80,11 @@ $(function(){
         CHAR_INFO.push('');
       }
     }
-
-    console.log(solution);
   }
 
   // key pressed
   window.addEventListener("keydown", function(e) {
-    if (valid_keys.includes(e.key)) {
+    if (allowed_keys.includes(e.key)) {
       // action
       TYPED_STR += e.key;
       getNewPaths(TYPED_STR.slice(-1));

@@ -1,12 +1,16 @@
-app
+Charmplify
 ---
 [![MIT License](http://img.shields.io/badge/license-MIT-blue.svg?style=flat)](LICENSE)
 
+[Char]acter pattern formation generator powered by Am[plify].
+
+It is written in Python(3.8) with [pipenv](https://github.com/pypa/pipenv) and tested on MacOS 10.15.
 This repository is for the [Fixstars Amplify Hackathon](https://amplify.fixstars.com/hackathon00).
 
-## Demo
+_This is one application of unlabeled-MAPF._
 
-## Description
+## Demo
+![demo](/material/amplify.gif)
 
 ## Requirement
 - [pipenv](https://github.com/pypa/pipenv)
@@ -15,7 +19,7 @@ This repository is for the [Fixstars Amplify Hackathon](https://amplify.fixstars
 ## Install
 First, clone this repo.
 ```sh
-git clone
+https://github.com/Kei18/champlify.git
 ```
 
 Next, register your access token to `.env` file.
@@ -25,7 +29,7 @@ echo TOKEN={YOUR_AMPLIFY_TOKEN} > .env
 
 Finally, create the environment.
 ```sh
-sudo pipenv sync
+pipenv sync
 ```
 
 ## Usage
@@ -33,9 +37,15 @@ sudo pipenv sync
 pipenv run app
 ```
 
+Type [a-z] with your keyboard, then the formation of agents will be changed.
+
+## Explanation
+See [slides.pdf](/material/slides.pdf)
+
 ## Notes
 - map format: [Pathfinding Benchmarks](https://movingai.com/benchmarks/)
-- Of course, this repo is for *hackathon* (i.e., please do not blame me if bugs exist, I actually skip tests)
+- instance format: see [example.txt](/instance/example.txt)
+- Of course, this repo is for *hackathon* (i.e., please do not blame me if bugs exist...)
 
 ## Licence
 This software is released under the MIT License, see [LICENCE.txt](LICENCE.txt).

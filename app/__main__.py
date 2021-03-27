@@ -13,6 +13,18 @@ logging.basicConfig(level=logging.DEBUG, format=formatter)
 
 @eel.expose
 def key_pressed(before_pos, next_char, ins_cnt):
+    """called from gui app
+
+    Args
+    - before_pos (list of integer): before
+    - next_char (char): after
+    - ins_cnt (int): #(instances)
+
+    Returns
+    - dictionary
+      - solution: plan of agents
+      - char: final config
+    """
     logger.info(f'solve unlabeled-MAPF to char-{next_char}')
     ins_name = f'./instance/tmp/{ins_cnt}.txt'
     map_name = './map/5x7.map'
@@ -25,15 +37,6 @@ def key_pressed(before_pos, next_char, ins_cnt):
     }
 
 if __name__ == '__main__':
-
-    # map_name = './map/5x7.map'
-
-    # create_transition_file(ins_name, 'a', 'b')
-
-    # solver = Unlabled_MAPF_Solver(map_name, ins_name)
-    # solver.solve()
-    # print(solver.solution)
-
     eel.init("gui", allowed_extensions=[".js", ".html"])
     eel.start("index.html",
               host="localhost",

@@ -16,9 +16,13 @@ CHAR_MAX_POINTS_NUM = 20
 CHAR_MIN_POINTS_NUM = 11
 
 def get_config_from_char(c):
-    """
+    """translate char to config
+
+    Args:
+    - c (char): char
+
     Returns
-    - list: (s, g)
+    - list: (s, g), config
     """
     config = []
     if c not in CHAR_MAP.keys():
@@ -32,7 +36,12 @@ def get_config_from_char(c):
     return config
 
 def create_transition_file(filename, before_pos, c_to):
-    """
+    """create input file for unlabeled MAPF solver
+
+    Args:
+    - filename (string): output file
+    - before_pos (list of integer): before
+    - c_to (char): after
     """
     config_to = get_config_from_char(c_to)
     with open(filename, 'w') as f:
@@ -40,11 +49,18 @@ def create_transition_file(filename, before_pos, c_to):
             f.write('{},{},{},{}\n'.format(int(s)%CHAR_MAP_WIDTH, int(s)//CHAR_MAP_WIDTH, g[0], g[1]))
 
 def get_trimed_str(c):
-    """
+    """translate char to string
+
+    Args:
+    - c (char)
+
+    Returns
+    - string
     """
     return CHAR_MAP[c].strip().replace('\n', '').replace(' ', '')
 
 
+# font data, [a-z], 5x7
 CHAR_MAP = {
     'a': """
     _***_
