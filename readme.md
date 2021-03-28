@@ -1,10 +1,11 @@
-Charmplify
+Champlify
 ---
 [![MIT License](http://img.shields.io/badge/license-MIT-blue.svg?style=flat)](LICENSE)
 
-[Char]acter pattern formation generator powered by Am[plify].
+[Cha]racter pattern formation generator powered by A[mplify].
 
 It is written in Python(3.8) with [pipenv](https://github.com/pypa/pipenv) and tested on MacOS 10.15.
+The GUI uses [Eel](https://github.com/samuelhwilliams/Eel).
 This repository is for the [Fixstars Amplify Hackathon](https://amplify.fixstars.com/hackathon00).
 
 _This is one application of unlabeled-MAPF._
@@ -19,7 +20,8 @@ _This is one application of unlabeled-MAPF._
 ## Install
 First, clone this repo.
 ```sh
-https://github.com/Kei18/champlify.git
+git clone https://github.com/Kei18/champlify.git
+cd champlify
 ```
 
 Next, register your access token to `.env` file.
@@ -44,7 +46,7 @@ See [slides.pdf](/material/slides.pdf)
 
 ## Notes
 - map format: [Pathfinding Benchmarks](https://movingai.com/benchmarks/)
-- instance format: see [example.txt](/instance/example.txt)
+- instance format: `x-start, y-start, x-target, y-target`. See [example.txt](/instance/example.txt)
 - Of course, this repo is for *hackathon* (i.e., please do not blame me if bugs exist...)
 
 ## Licence
