@@ -1,15 +1,17 @@
 #!/usr/bin/env python
 
 from . unlabeled_mapf_solver import Unlabled_MAPF_Solver
-from . fonts import create_transition_file, get_trimed_str
+from . fonts import create_transition_file, get_trimed_str, CHAR_MAP_WIDTH
 import logging
 import eel
+import json
+import requests
+import os
 
 # set logger
 logger = logging.getLogger(__name__)
 formatter = '%(levelname)s: line %(lineno)d in %(funcName)s, %(filename)s: %(message)s'
 logging.basicConfig(level=logging.DEBUG, format=formatter)
-
 
 @eel.expose
 def key_pressed(before_pos, next_char, ins_cnt):
@@ -27,10 +29,25 @@ def key_pressed(before_pos, next_char, ins_cnt):
     """
     logger.info(f'solve unlabeled-MAPF to char-{next_char}')
     ins_name = f'./instance/tmp/{ins_cnt}.txt'
-    map_name = './map/5x7.map'
+    plan_name = f'./instance/tmp/{ins_cnt}.json'
+    map_name = './map/3x4.map'
     create_transition_file(ins_name, before_pos, next_char)
     solver = Unlabled_MAPF_Solver(map_name, ins_name)
     solver.solve()
+
+    # create toio instructions
+    toio_plan = []
+    for config in solver.solution:
+        toio_plan.append([ {"x": i % CHAR_MAP_WIDTH, "y": int(i / CHAR_MAP_WIDTH)}
+                           for i in config ])
+    with open(plan_name, mode='w') as f:
+        json.dump(toio_plan, f, indent=2)
+    plan_full_path = os.path.join(os.getcwd(), plan_name)
+    try:
+        requests.get(f"http://localhost:3000{plan_full_path}")
+    except:
+        logger.warning(f"server seems to be down now")
+
     return {
         "solution": solver.solution,
         "char": get_trimed_str(next_char)

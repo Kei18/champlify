@@ -2,8 +2,8 @@
  * animation -> check custom.css
  */
 
-const GRID_WIDTH = 5;
-const GRID_HEIGHT = 7;
+const GRID_WIDTH = 3;
+const GRID_HEIGHT = 4;
 const CELL_SIZE = 100;
 const BOARD_WIDTH = 9*CELL_SIZE;
 const BOARD_HEIGHT = 9*CELL_SIZE;
@@ -12,8 +12,7 @@ const UPDATE_TIME_INTERVAL = 500;
 const eel = window["eel"];
 
 const allowed_keys = [
-  'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm',
-  'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'
+  'f', 'j', 'l', 'o', 't', 'y',
 ];
 
 $(function(){
@@ -24,10 +23,9 @@ $(function(){
   const WINDOW_WIDTH = (window.outerWidth - window.innerWidth) + BOARD_WIDTH;
   const WINDOW_HEIGHT = (window.outerHeight - window.innerHeight) + BOARD_HEIGHT;
   window.resizeTo(WINDOW_WIDTH, WINDOW_HEIGHT);
-  window.onresize = function () { window.resizeTo(WINDOW_WIDTH, WINDOW_HEIGHT); };
 
-  function calc_x(x) { return CELL_SIZE*x + CELL_SIZE/2 + CELL_SIZE * 2;}
-  function calc_y(y) { return CELL_SIZE*y + CELL_SIZE/2 + CELL_SIZE; }
+  function calc_x(x) { return CELL_SIZE*x + CELL_SIZE/2 + CELL_SIZE * 3;}
+  function calc_y(y) { return CELL_SIZE*y + CELL_SIZE/2 + CELL_SIZE * 2; }
 
   let PATHS = [];           // trajectory
   let TYPED_STR = 'a';      // typed chars
