@@ -1,0 +1,38 @@
+{
+  "name": "@toio/cube",
+  "description": "",
+  "version": "1.0.0",
+  "author": "Sony Interactive Entertainment Inc.",
+  "keywords": [
+    "toio"
+  ],
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "repository": "https://github.com/toio/toio.js",
+  "license": "MIT",
+  "files": [
+    "lib/"
+  ],
+  "scripts": {
+    "build": "tsc --project .",
+    "build:watch": "tsc --project . --watch",
+    "clean": "rimraf .tsbuildinfo lib/",
+    "test": "jest"
+  },
+  "devDependencies": {
+    "@types/jest": "^25.1.0",
+    "jest": "^25.1.0",
+    "@types/semver": "^7.1.0",
+    "rimraf": "^2.6.3",
+    "ts-jest": "^25.0.0",
+    "typed-emitter": "^0.1.0",
+    "typescript": "^3.7.5"
+  },
+  "dependencies": {
+    "noble-mac": "Timeular/noble-mac",
+    "semver": "^7.1.2"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

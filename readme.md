@@ -40,14 +40,14 @@ pipenv sync
 
 4. Install & build toio execution system.
 ```sh
-cd toio-exec
+cd toio_exec
 yarn install
 yarn build
 cd ..
 ```
 
 ## Usage
-0. (You may have to adjust coordinates in `toio-exec/map/3x4.json`)
+0. (You may have to adjust coordinates in `toio_exec/map/3x4.json`)
 1. Switch on the robots
 2. Run
 ```sh
@@ -66,7 +66,7 @@ See [slides.pdf](/material/slides.pdf)
 ## Notes
 - map format: [Pathfinding Benchmarks](https://movingai.com/benchmarks/)
 - Of course, this repo is for *hackathon* (i.e., please do not blame me if bugs exist...)
-- `toio-exec` is forked from [toio.js](https://github.com/toio/toio.js). To make the repo private temporarily, I duplicate the original repo
+- `toio_exec` is forked from [toio.js](https://github.com/toio/toio.js). To make the repo private temporarily, I duplicate the original repo
 
 ## Licence
 This software is released under the MIT License, see [LICENCE.txt](LICENCE.txt).
