@@ -15,7 +15,7 @@ _This is one application of unlabeled-MAPF._
 ## Demo
 ![demo](/material/amplify.gif)
 
-![robots](/material/)
+![robots](/material/toio.gif)
 
 [video](https://vimeo.com/540891573)
 
