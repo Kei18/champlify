@@ -18,7 +18,7 @@ _This is one application of unlabeled-MAPF._
 ## Requirement
 - [pipenv](https://github.com/pypa/pipenv)
 - [yarn](https://yarnpkg.com/)
-- [6 toio robots](https://toio.io/)
+- [7 toio robots](https://toio.io/) (6 robots are possible if modifying the code)
 - access token to amplify library ([link](https://amplify.fixstars.com/user/token))
 
 ## Install
