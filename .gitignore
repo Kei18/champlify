@@ -144,3 +144,4 @@ dmypy.json
 
 .env
 .DS_Store
+/toio_exec/
